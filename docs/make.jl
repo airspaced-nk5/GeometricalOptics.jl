@@ -4,7 +4,7 @@ using GeometricalOptics, Plots
 makedocs(
     sitename = "GeometricalOptics.jl",
     format = Documenter.HTML(),
-    modules = [GeometricalOptics, Plots],
+    modules = [GeometricalOptics],
     pages=[ "index.md",
             "Quickstart.md",
             "Options.md",
