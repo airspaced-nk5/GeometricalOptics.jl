@@ -9,14 +9,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: Update Qt
-        run: sudo apt-get install libxcb-xinerama0
-      - name: Update Qt 2
-        run: sudo apt update
-      - name: Update Qt 3
-        run: sudo apt install xcb
+      # - name: Update Qt
+      #   run: sudo apt-get install libxcb-xinerama0
+      # - name: Update Qt 2
+      #   run: sudo apt update
+      # - name: Update Qt 3
+      #   run: sudo apt install xcb
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
