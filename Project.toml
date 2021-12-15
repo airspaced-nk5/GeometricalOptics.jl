@@ -3,6 +3,13 @@ uuid = "bcf78de8-a01d-4207-9174-b5b11956a333"
 authors = ["Nicholas Kochan"]
 version = "0.1.0"
 
+[deps]
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+PlotlyBase = "a03496cd-edff-5a9b-9e67-9cda94a718b5"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+ZernikePolynomials = "e462d300-c971-11e9-30f1-fb93b1f8f73a"
+
 [compat]
 julia = "1"
 
