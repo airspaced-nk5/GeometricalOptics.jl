@@ -11,6 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Update Qt
+        run: sudo apt-get install libxcb-xinerama0
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
