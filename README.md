@@ -18,9 +18,6 @@ Add GeometricalOptics.jl using `Pkg`:
 using Pkg; Pkg.add("GeometricalOptics")
 ```
 
-Though not strictly necessary for basic analyses, it is also highly recommended to add Plots.jl.  This will appear in some of the examples.
-
-
 ## Roadmap
 
 The package will be periodically updated with the following objectives in mind, in order of decreasing priority:
