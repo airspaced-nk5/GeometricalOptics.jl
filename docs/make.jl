@@ -1,10 +1,10 @@
 using Documenter
-using GeometricalOptics
+using GeometricalOptics, Plots
 
 makedocs(
     sitename = "GeometricalOptics.jl",
     format = Documenter.HTML(),
-    modules = [GeometricalOptics],
+    modules = [GeometricalOptics, Plots],
     pages=[ "index.md",
             "Quickstart.md",
             "Options.md",
@@ -18,5 +18,4 @@ makedocs(
 # for more information.
 deploydocs(
            repo = "github.com/airspaced-nk5/GeometricalOptics.jl.git",
-           devbranch = "main"
        )
