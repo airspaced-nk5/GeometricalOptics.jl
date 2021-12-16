@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       # - name: Update Qt
       #   run: sudo apt-get install libxcb-xinerama0
@@ -21,8 +21,12 @@ jobs:
       - uses: julia-actions/setup-julia@latest
         with:
           version: '1.6'
+      - name: Install binaries
+        run: sudo apt-get update && sudo apt-get install -y xvfb
       - name: Install dependencies
-        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+        run: >
+          DISPLAY=:0 xvfb-run -s 'screen 0 1024x768x24'
+          julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       - name: Build and deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
