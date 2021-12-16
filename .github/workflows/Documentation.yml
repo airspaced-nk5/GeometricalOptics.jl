@@ -25,7 +25,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y xvfb
       - name: Install dependencies
         run: >
-          sudo xvfb-run -a 'screen 0 1024x768x24'
+          sudo xvfb-run -a 
           julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       - name: Build and deploy
         env:
