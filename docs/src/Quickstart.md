@@ -2,8 +2,6 @@
 
 A lens can easily be defined, plotted, and evaluated in ten lines of code as shown in this tutorial.  The first few lines are for definition of system geometry, then bundle definition defines the rays for analysis, and finally the evaluation of the optical stack on the bundle yields the trace and plots used for analysis.
 
-__Plots are shown in this documentation as static, but are actually interactive when rendered with the package--to see this try it out yourself!__
-
 ## System geometry
 
 The system geometry is defined by 
@@ -62,6 +60,8 @@ p_lens = optSta(test_bundle; rend = "YZ")
 ```
 
 Argument options for plotting are `rend="YZ"`, `rend="XZ"`, `rend="3Dcirc"`, `rend="3Dsq"`.  The global plot domain of surfaces can be adjusted by `xdom` and `ydom`.
+
+The various plots can be plotted statically as shown in the docs or as __interactive plots__ by using the plotly backend of Plots with this package. Just use `using Plots, Plots.plotly()` and the plots will be interactive.
 
 ```@example 1
 p_lens = optSta(test_bundle; rend = "YZ", ydom = -2:0.1:2)

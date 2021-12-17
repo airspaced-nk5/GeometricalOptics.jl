@@ -48,4 +48,4 @@ Support this project by
 
 ## License
 
-This package is provided for use under the MIT License
+This package is provided for use under the MIT License.
