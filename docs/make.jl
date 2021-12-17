@@ -1,8 +1,8 @@
-cd(@__DIR__)
+# cd(@__DIR__)
 
-using Pkg
-Pkg.activate(@__DIR__)
-Pkg.instantiate()
+# using Pkg
+# Pkg.activate(@__DIR__)
+# Pkg.instantiate()
 
 using Documenter
 using GeometricalOptics, Plots
