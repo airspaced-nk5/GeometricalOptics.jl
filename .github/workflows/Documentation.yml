@@ -11,24 +11,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: Update Qt
-      #   run: sudo apt-get install libxcb-xinerama0
-      # - name: Update Qt 2
-      #   run: sudo apt update
-      # - name: Update Qt 3
-      #   run: sudo apt install xcb
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
           version: '1.6'
-      - name: Install binaries
-        run: sudo apt-get update && sudo apt-get install -y xvfb
       - name: Install dependencies
-        run: >
-          sudo xvfb-run -a 
-          julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       - name: Build and deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
-        run: julia --project=docs/ -e 'using Pkg; Pkg.instantiate(); include("docs\\make.jl")'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For authentication with GitHub Actions token
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # For authentication with SSH deploy key
+          GKSwstype: "100" # https://discourse.julialang.org/t/generation-of-documentation-fails-qt-qpa-xcb-could-not-connect-to-display/60988
+        run: julia --project=docs --color=yes docs/make.jl
