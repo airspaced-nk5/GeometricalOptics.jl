@@ -9,9 +9,8 @@ GeometricalOptics.jl is a simple, compact, and extensible tool for optical raytr
 Add GeometricalOptics.jl using `Pkg`:
 
 ```
-] add https://github.com/airspaced-nk5/GeometricalOptics.jl.git #current
+using Pkg; Pkg.add("GeometricalOptics")
 
-] add GeometricalOptics #future
 ```
 
 ## Roadmap
