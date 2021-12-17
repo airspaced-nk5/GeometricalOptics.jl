@@ -1,4 +1,4 @@
-# GeometricalOptics
+# GeometricalOptics.jl
 
 ## Overview 
 
