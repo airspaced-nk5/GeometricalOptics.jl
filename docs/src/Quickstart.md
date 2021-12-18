@@ -61,7 +61,7 @@ p_lens = optSta(test_bundle; rend = "YZ")
 
 Argument options for plotting are `rend="YZ"`, `rend="XZ"`, `rend="3Dcirc"`, `rend="3Dsq"`.  The global plot domain of surfaces can be adjusted by `xdom` and `ydom`.
 
-The various plots can be plotted statically as shown in the docs or as __interactive plots__ by using the plotly backend of Plots with this package. Just use `using Plots, Plots.plotly()` and the plots will be interactive.
+The various plots can be plotted statically as shown in the docs or as __interactive plots__ by using the plotly backend of Plots with this package. Just add `using Plots; Plots.plotly()` and the plots will be interactive.
 
 ```@example 1
 p_lens = optSta(test_bundle; rend = "YZ", ydom = -2:0.1:2)
