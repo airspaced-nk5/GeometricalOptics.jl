@@ -223,12 +223,12 @@ julia> eval_bundle()
 ([[0.5000000000000002, 0.5000000000000002, 2.220446049250313e-16] [1.0000000000000002, 1.0000000000000002, 2.220446049250313e-16]], [[0.0, 0.0, 1.0] [0.0, 0.0, 1.0]])
 ```
 """
-struct bundle_as_array{T<: Real}
-    x::AbstractArray{T,2}
-    y::AbstractArray{T,2}
-    angx::AbstractArray{T,2}# these are direction tangents.
-    angy::AbstractArray{T,2}
-    zpos:: Union{AbstractArray{T,2},Real}
+struct bundle_as_array{T,V}
+    x::T
+    y::T
+    angx::T# these are direction tangents.
+    angy::T
+    zpos::V
 end
 function (cb::bundle_as_array)()
 
@@ -248,13 +248,13 @@ Composite type representing the origination of a set of rays. All arguments are 
 
 
 """
-struct bundle_as_array_big{T<: Real}
-    x::AbstractArray{T,2}
-    y::AbstractArray{T,2}
-    z::AbstractArray{T,2}
-    Dx::AbstractArray{T,2}# these are direction tangents.
-    Dy::AbstractArray{T,2}
-    Dz::AbstractArray{T,2}
+struct bundle_as_array_big{T}
+    x::T
+    y::T
+    z::T
+    Dx::T# these are direction cosines.
+    Dy::T
+    Dz::T
 end
 function (cb::bundle_as_array_big)()
     R0=[[cb.x[i,j].+eps(),cb.y[i,j].+eps(),cb.z[i,j].+eps()] for i in 1:size(cb.x)[1],j in 1:size(cb.y)[2]]
@@ -268,11 +268,11 @@ end
 Composite type holding position and accumulated optical path for parsing. Each is Type `Matrix{Vector{T}} where T<:Real`, 
 vector holding information along propagation and the matrix mapping to the chosen input bundle subscripting.
 """
-struct trace{T<:Real}
-    xr::Matrix{Vector{T}}
-    yr::Matrix{Vector{T}}
-    zr::Matrix{Vector{T}}
-    nsr::Matrix{Vector{T}} 
+struct trace{T}
+    xr::T
+    yr::T
+    zr::T
+    nsr::T
 end
 
 """ 
@@ -282,14 +282,14 @@ Composite type holding position, direction, and accumulated optical path for par
 vector holding information along propagation and the matrix mapping to the chosen input bundle subscripting.
 
 """
-struct bigtrace{T<:Real}
-    xr::Matrix{Vector{T}} 
-    yr::Matrix{Vector{T}} 
-    zr::Matrix{Vector{T}} 
-    Dxr::Matrix{Vector{T}} 
-    Dyr::Matrix{Vector{T}} 
-    Dzr::Matrix{Vector{T}} 
-    nsr::Matrix{Vector{T}}
+struct bigtrace{T}
+    xr::T
+    yr::T
+    zr::T
+    Dxr::T
+    Dyr::T
+    Dzr::T
+    nsr::T
 end
 
 """
@@ -540,16 +540,16 @@ trace{Float64}([[0.5, 0.5, 0.4742890889441142, -0.024645519233983726] ... ; ...]
 ```
 
 """
-struct opticalstack{T<:Real}
-    coeffslist::Vector{Vector{T}}
-    surfslist::Array{S,1} where S<:Any #surfslist::Array{UnionAll,1}
+struct opticalstack
+    coeffslist::Vector{Vector{T}} where T<:Real
+    surfslist::Array{S,1} where S<:Any 
     nlist::Vector{S} where S<:Any 
     diffractiveslist::Union{Vector{S} where S<:Any,Nothing}
-    diffcoeffslist::Union{Vector{Vector{T}},Nothing}
+    diffcoeffslist::Union{Vector{Vector{T}},Nothing} where T<:Real
     diffmlist::Union{Vector{Int},Nothing}
-    wavelength::Union{T,Nothing}
-    ncoeffslist::Union{Vector{Vector{T}},Nothing}
-    grindt::Union{T,Nothing}
+    wavelength::Union{T,Nothing} where T<:Real
+    ncoeffslist::Union{Vector{Vector{T}},Nothing} where T<:Real
+    grindt::Union{T,Nothing} where T<:Real
 end
 opticalstack(
     coeffslist::Vector{Vector{T}} where T<:Real,
