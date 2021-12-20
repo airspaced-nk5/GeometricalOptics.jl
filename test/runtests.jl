@@ -74,10 +74,14 @@ bund4=bundle((-1:0.1:1).+eps(),(-1:0.1:1).+eps(),0.,0.,0.)
 bund5=bundle((-1:0.1:1).+eps(),(-1:0.1:1).+eps(),0.,0.14,0.)
 bund6=bundle(0.,0. .+eps(),(-0.1:0.01:0.1).+eps(),(-0.1:0.01:0.1).+eps(),0.)
 bund7=bundle(0.,0.14,(-0.1:0.01:0.1).+eps(),(-0.1:0.01:0.1).+eps(),0.)
+bund1_fast= bundle_as_array_fast(r.*cos.(th),r.*sin.(th),0. .* ones(size(r)), 0. .* ones(size(r)),0.)
+bund4_fast=bundle_fast(Vector((-1:0.1:1).+eps()),Vector((-1:0.1:1).+eps()),0.,0.,0.)
+bund7_fast=bundle_fast(0.,0.14,Vector((-0.1:0.01:0.1).+eps()),Vector((-0.1:0.01:0.1).+eps()),0.)
 traceObj=super_optSta[1](bund1;isbigtrace=true)
-bund8=bigtrace_to_bundle(traceObj,4)
+bund8=bigtrace_to_bundle(traceObj,4) 
+bund8_fast=bundle_as_array_big_fast(bund8.x,bund8.y,bund8.z,bund8.Dx,bund8.Dy,bund8.Dz)
 
-super_bundle=[bund1,bund2,bund3,bund4,bund5,bund6,bund7,bund8]
+super_bundle=[bund1,bund2,bund3,bund4,bund5,bund6,bund7,bund8,bund1_fast,bund4_fast,bund7_fast,bund8_fast]
 
 @testset "trace,eval" begin
     for i in 1:length(super_optSta), j in 1:length(super_bundle)

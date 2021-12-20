@@ -1,7 +1,7 @@
 module GeometricalOptics
 
-export zplane, spherical, aspherical, zernike, bundle, bundle_as_array, opticalstack, 
-rms_spot, splot, rac, trace, bigtrace, bigtrace_to_bundle, bundle_as_array_big,
+export zplane, spherical, aspherical, zernike, bundle, bundle_fast, bundle_as_array, bundle_as_array_fast, opticalstack, 
+rms_spot, splot, rac, trace, bigtrace, bigtrace_to_bundle, bundle_as_array_big, bundle_as_array_big_fast,
 trace_extract_ray, trace_extract_terminus
 
 using Plots
@@ -183,14 +183,25 @@ julia> eval_bundle()
 ([[0.0, 0.0, 0.0] [0.0, 1.0, 0.0]; [1.0, 0.0, 0.0] [1.0, 1.0, 0.0]], [[0.0, 0.0, 1.0] [0.0, 0.0, 1.0]; [0.0, 0.0, 1.0] [0.0, 0.0, 1.0]])
 ```
 """
-struct bundle{T}
+struct bundle{x<:VecOrNum,
+                y<:VecOrNum,
+                angx<:VecOrNum,
+                angy<:VecOrNum,
+                zpos<:Real}
+    x::x
+    y::y
+    angx::angx# these are direction tangents.
+    angy::angy
+    zpos::zpos
+end
+struct bundle_fast{T}
     x::VecOrNum{T}
     y::VecOrNum{T}
     angx::VecOrNum{T}# these are direction tangents.
     angy::VecOrNum{T}
     zpos::T
 end
-function (cb::bundle)()
+function (cb::Union{bundle,bundle_fast})()
     if typeof(cb.x)<:AbstractArray && typeof(cb.y)<:AbstractArray && typeof(cb.angx)<:Real && typeof(cb.angy)<:Real
         R0=[[cb.x[i].+eps(),cb.y[j].+eps(),cb.zpos.+eps()]  for i in 1:length(cb.x),j in 1:length(cb.y)]
         D0=[[sin(cb.angx),sin(cb.angy),sqrt(1-sin(cb.angx)^2-sin(cb.angy)^2)] for i in 1:length(cb.x),j in 1:length(cb.y)]
@@ -215,6 +226,8 @@ When a variable is declared this type with specific parameters and called
 as a function with no arguments, it returns a tuple (position, direction) each 
 entry of which is an output array of vectors corresponding to the input information.
 
+__NOTE__ if types of entries in inputs are known to all be the same, use `bundle_as_array_fast` with same syntax for increased speed.
+
 # Examples
 ```julia-repl
 julia> eval_bundle = bundle_as_array([0.5 1.], [0.5 1.], [0. 0.], [0. 0.], 0.)
@@ -224,14 +237,25 @@ julia> eval_bundle()
 ([[0.5000000000000002, 0.5000000000000002, 2.220446049250313e-16] [1.0000000000000002, 1.0000000000000002, 2.220446049250313e-16]], [[0.0, 0.0, 1.0] [0.0, 0.0, 1.0]])
 ```
 """
-struct bundle_as_array{T,V}
+struct bundle_as_array{ x<:AbstractMatrix{T} where T<:Real,
+                        y<:AbstractMatrix{T} where T<:Real,
+                        angx<:AbstractMatrix{T} where T<:Real,
+                        angy<:AbstractMatrix{T} where T<:Real,
+                        zpos<:Real}
+    x::x
+    y::y
+    angx::angx
+    angy::angy
+    zpos::zpos
+end
+struct bundle_as_array_fast{T,V}
     x::T
     y::T
     angx::T# these are direction tangents.
     angy::T
     zpos::V
 end
-function (cb::bundle_as_array)()
+function (cb::Union{bundle_as_array,bundle_as_array_fast})()
 
     if length(size(cb.zpos))==2
         R0=[[cb.x[i,j].+eps(),cb.y[i,j].+eps(),cb.zpos[i,j].+eps()] for i in 1:size(cb.x)[1],j in 1:size(cb.y)[2]]
@@ -247,9 +271,23 @@ end
 
 Composite type representing the origination of a set of rays. All arguments are Type `AbstractArray{T,2} where T<:Real`.
 
+__NOTE__ if all input arrays are guaranteed to have the same type, then use `bundle_as_array_big_fast` with same syntax for increased speed.
 
 """
-struct bundle_as_array_big{T}
+struct bundle_as_array_big{ x<:AbstractMatrix{T} where T<:Real,
+                            y<:AbstractMatrix{T} where T<:Real,
+                            z<:AbstractMatrix{T} where T<:Real,
+                            Dx<:AbstractMatrix{T} where T<:Real,
+                            Dy<:AbstractMatrix{T} where T<:Real,
+                            Dz<:AbstractMatrix{T} where T<:Real}
+    x::x
+    y::y
+    z::z
+    Dx::Dx# these are direction cosines.
+    Dy::Dy
+    Dz::Dz
+end
+struct bundle_as_array_big_fast{T}
     x::T
     y::T
     z::T
@@ -257,7 +295,7 @@ struct bundle_as_array_big{T}
     Dy::T
     Dz::T
 end
-function (cb::bundle_as_array_big)()
+function (cb::Union{bundle_as_array_big,bundle_as_array_big_fast})()
     R0=[[cb.x[i,j].+eps(),cb.y[i,j].+eps(),cb.z[i,j].+eps()] for i in 1:size(cb.x)[1],j in 1:size(cb.y)[2]]
     D0=[[cb.Dx[i,j],cb.Dy[i,j],cb.Dz[i,j]] for i in 1:size(cb.x)[1],j in 1:size(cb.y)[2]]
     return R0,D0 
