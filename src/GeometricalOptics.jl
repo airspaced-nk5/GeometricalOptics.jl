@@ -159,6 +159,7 @@ function (gi::getIntersect_preInit)(R,D)
     sg
 end
 
+VecOrNum=Union{AbstractVector{T},T} where T
 
 """
     bundle(x, y, angx, angy, zpos)
@@ -182,12 +183,12 @@ julia> eval_bundle()
 ([[0.0, 0.0, 0.0] [0.0, 1.0, 0.0]; [1.0, 0.0, 0.0] [1.0, 1.0, 0.0]], [[0.0, 0.0, 1.0] [0.0, 0.0, 1.0]; [0.0, 0.0, 1.0] [0.0, 0.0, 1.0]])
 ```
 """
-struct bundle
-    x::Union{AbstractArray{T,1} where T<:Real,Real}
-    y::Union{AbstractArray{T,1} where T<:Real,Real}
-    angx::Union{AbstractArray{T,1} where T<:Real,Real}# these are direction tangents.
-    angy::Union{AbstractArray{T,1} where T<:Real,Real}
-    zpos:: T where T<: Real
+struct bundle{T}
+    x::VecOrNum{T}
+    y::VecOrNum{T}
+    angx::VecOrNum{T}# these are direction tangents.
+    angy::VecOrNum{T}
+    zpos::T
 end
 function (cb::bundle)()
     if typeof(cb.x)<:AbstractArray && typeof(cb.y)<:AbstractArray && typeof(cb.angx)<:Real && typeof(cb.angy)<:Real
@@ -464,6 +465,10 @@ function propSingleGRIN2(R,D,indexRef,indexRefGrad;dt=0.1)
 end
 
 
+CoeffLikeOption=Union{Vector{Vector{T}},Nothing} where T
+VectorLikeOption=Union{Vector,Nothing}
+NumLikeOption=Union{Real,Nothing}
+
 """
     opticalstack_instance = opticalstack( ... )
 
@@ -541,32 +546,32 @@ trace{Float64}([[0.5, 0.5, 0.4742890889441142, -0.024645519233983726] ... ; ...]
 
 """
 struct opticalstack
-    coeffslist::Vector{Vector{T}} where T<:Real
-    surfslist::Array{S,1} where S<:Any 
-    nlist::Vector{S} where S<:Any 
-    diffractiveslist::Union{Vector{S} where S<:Any,Nothing}
-    diffcoeffslist::Union{Vector{Vector{T}},Nothing} where T<:Real
-    diffmlist::Union{Vector{Int},Nothing}
-    wavelength::Union{T,Nothing} where T<:Real
-    ncoeffslist::Union{Vector{Vector{T}},Nothing} where T<:Real
-    grindt::Union{T,Nothing} where T<:Real
+    coeffslist::CoeffLikeOption
+    surfslist::VectorLikeOption
+    nlist::VectorLikeOption
+    diffractiveslist::VectorLikeOption
+    diffcoeffslist::CoeffLikeOption
+    diffmlist::VectorLikeOption
+    wavelength::NumLikeOption
+    ncoeffslist::CoeffLikeOption
+    grindt::NumLikeOption
 end
 opticalstack(
-    coeffslist::Vector{Vector{T}} where T<:Real,
-    surfslist::Array{S,1} where S<:Any,
-    nlist::Vector{S} where S<:Any)=opticalstack(
+    coeffslist::CoeffLikeOption,
+    surfslist::VectorLikeOption,
+    nlist::VectorLikeOption)=opticalstack(
         coeffslist,
         surfslist,
         nlist,
         nothing,nothing,nothing,nothing,nothing,nothing)
 opticalstack(
-    coeffslist::Vector{Vector{T}} where T<:Real,
-    surfslist::Array{S,1} where S<:Any,
-    nlist::Vector{S} where S<:Any,
-    diffractiveslist::Union{Vector{S} where S<:Any,Nothing},
-    diffcoeffslist::Union{Vector{Vector{T}},Nothing} where T<:Real,
-    diffmlist::Union{Vector{Int},Nothing},
-    wavelength::Union{T,Nothing} where T<:Real) = opticalstack(
+    coeffslist::CoeffLikeOption,
+    surfslist::VectorLikeOption,
+    nlist::VectorLikeOption,
+    diffractiveslist::VectorLikeOption,
+    diffcoeffslist::CoeffLikeOption,
+    diffmlist::VectorLikeOption,
+    wavelength::NumLikeOption) = opticalstack(
         coeffslist,
         surfslist,
         nlist,
@@ -576,11 +581,11 @@ opticalstack(
         wavelength,
         nothing,nothing)
 opticalstack(
-    coeffslist::Vector{Vector{T}} where T<:Real,
-    surfslist::Array{S,1} where S<:Any,
-    nlist::Vector{S} where S<:Any,
-    ncoeffslist::Union{Vector{Vector{T}},Nothing} where T<:Real,
-    grindt::Union{T,Nothing} where T<:Real) = opticalstack(
+    coeffslist::CoeffLikeOption,
+    surfslist::VectorLikeOption,
+    nlist::VectorLikeOption,
+    ncoeffslist::CoeffLikeOption,
+    grindt::NumLikeOption) = opticalstack(
         coeffslist,
         surfslist,
         nlist,
