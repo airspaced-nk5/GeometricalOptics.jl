@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples (2D and 3D) · GeometricalOptics.jl</title><meta name="title" content="Examples (2D and 3D) · GeometricalOptics.jl"/><meta property="og:title" content="Examples (2D and 3D) · GeometricalOptics.jl"/><meta property="twitter:title" content="Examples (2D and 3D) · GeometricalOptics.jl"/><meta name="description" content="Documentation for GeometricalOptics.jl."/><meta property="og:description" content="Documentation for GeometricalOptics.jl."/><meta property="twitter:description" content="Documentation for GeometricalOptics.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img class="docs-light-only" src="../assets/logo.svg" alt="GeometricalOptics.jl logo"/><img class="docs-dark-only" src="../assets/logo-dark.svg" alt="GeometricalOptics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">GeometricalOptics.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">GeometricalOptics.jl</a></li><li><a class="tocitem" href="../Quickstart/">Quickstart tutorial</a></li><li><a class="tocitem" href="../Options/">Bundle, surface, and trace options</a></li><li class="is-active"><a class="tocitem" href>Examples (2D and 3D)</a><ul class="internal"><li><a class="tocitem" href="#Vectorizing-over-bundle-angles"><span>Vectorizing over bundle angles</span></a></li><li><a class="tocitem" href="#Advantageous-start-conditions-and-fixing-a-broken-raytrace"><span>Advantageous start conditions and fixing a broken raytrace</span></a></li><li><a class="tocitem" href="#Vectorizing-over-index,-3D-analysis"><span>Vectorizing over index, 3D analysis</span></a></li><li><a class="tocitem" href="#custSurf"><span>Sideloading a new surface function: caustics in the swimming pool</span></a></li><li><a class="tocitem" href="#grin"><span>Advanced: Gradient index (GRIN) lens with flat surfaces</span></a></li><li><a class="tocitem" href="#grating"><span>Advanced: Grating/hologram/metasurface lens</span></a></li></ul></li><li><a class="tocitem" href="../TroubleConv/">Troubleshooting and Conventions</a></li><li><a class="tocitem" href="../Reference/">Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Examples (2D and 3D)</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Examples (2D and 3D)</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/airspaced-nk5/GeometricalOptics.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/airspaced-nk5/GeometricalOptics.jl/blob/master/docs/src/Examples.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples-(2D-and-3D)"><a class="docs-heading-anchor" href="#Examples-(2D-and-3D)">Examples (2D and 3D)</a><a id="Examples-(2D-and-3D)-1"></a><a class="docs-heading-anchor-permalink" href="#Examples-(2D-and-3D)" title="Permalink"></a></h1><h2 id="Vectorizing-over-bundle-angles"><a class="docs-heading-anchor" href="#Vectorizing-over-bundle-angles">Vectorizing over bundle angles</a><a id="Vectorizing-over-bundle-angles-1"></a><a class="docs-heading-anchor-permalink" href="#Vectorizing-over-bundle-angles" title="Permalink"></a></h2><p>The <a href="../Quickstart/#Quickstart-tutorial">Quickstart tutorial</a> showed tracing a single bundle through a system.  Now suppose there is a need to trace multiple types of bundles through a system all at once.  Consider a system of two parabolic surfaces which have bundles incident at different angles. One could simply do the procedure in the tutorial three different ways, but this would be somewhat verbose.  Instead this can be done more efficiently by defining functions over the variables which are of interest and then calling them on vectors of the different variable values.</p><p>Below a setup is implemented very similarly to the tutorial, but a function <code>bund_ang(angle)</code> is defined to originate a bundle of fixed spatial origin but variable y-direction-tangent angle.</p><pre><code class="language-julia hljs">using GeometricalOptics, Plots
+
+surfslist = [aspherical, aspherical, zplane]
+coeffslist = [[5., -6., -1.], [1., 2., -1.], [8.]]      # two parabolic surfaces
+nlist = [1., -1., 1.]                               # index sign change means reflection
+
+optsta_instance = opticalstack(coeffslist, surfslist, nlist)
+
+bund_ang(angle) = bundle([0.], (-0.5:0.5:0.5).+1, 0., angle, 0.)</code></pre><p>Then vectors to vary for the system are defined. Three different angles are of interest, and for visiblity it is best to plot in different colors and only plot surfaces along with a single set of rays (as the system does not change otherwise). Then a Plots.jl plot pane is initialized so that it can be passed into all of the vectorized cases of analysis and they can be plotted together.</p><pre><code class="language-julia hljs">angles = [0., 0.028, 0.04]                    # a list of three angles
+colors = [:red, :green, :blue]                # each of which is colored differently
+issurfplotvec = [true, false, false]          # only plot surfaces along with first bundle
+plot_together_in = Plots.plot()               # must put this into the system plotter to get all angles.</code></pre><p>Finally a function <code>stack_render</code> is defined to accept all of the varying parameters, and then the vectors are all passed into the function to return a vector of plots. The vector of plots are linked to the same original <code>Plots.plot</code> instance, so calling the last element of the vector of plots will show all three instances together.</p><pre><code class="language-julia hljs">stack_render(angle, pc, isp) = optsta_instance(bund_ang(angle); rend = &quot;YZ&quot;, color = pc, numsurfpoints = 100, plobj = plot_together_in, issurfplot = isp)
+
+plot_together_out_vec = stack_render.(angles, colors, issurfplotvec)
+plot_together_out_vec[3]                    # the last entry in the vector of plots has all bundles</code></pre><img src="d43fc122.svg" alt="Example block output"/><p>And an analogous procedure generates all of the spot plots together. A function is defined to set a now square bundle for a variable y-angle, and then another function plots all of the spots together on the final plane.</p><pre><code class="language-julia hljs">splot_init = Plots.plot()
+
+bund2_ang(angle) = bundle((-0.5:0.2:0.5), (-0.5:0.2:0.5).+1, 0., angle, 0.)
+
+function optsta_render_splot(angle, pc, isp)
+    traceout = optsta_instance(bund2_ang(angle))
+    splot(traceout, pl_splot = splot_init, color = pc)
+end
+
+splot_vec = optsta_render_splot.(angles, colors, issurfplotvec)
+splot_vec[3]                                # the last entry in the vector of plots has all bundles</code></pre><img src="6296eb66.svg" alt="Example block output"/><h2 id="Advantageous-start-conditions-and-fixing-a-broken-raytrace"><a class="docs-heading-anchor" href="#Advantageous-start-conditions-and-fixing-a-broken-raytrace">Advantageous start conditions and fixing a broken raytrace</a><a id="Advantageous-start-conditions-and-fixing-a-broken-raytrace-1"></a><a class="docs-heading-anchor-permalink" href="#Advantageous-start-conditions-and-fixing-a-broken-raytrace" title="Permalink"></a></h2><p>Broadly, there are few ways to break the raytrace analysis. One way is to attempt to violate physics or basic geometry. Another way is due to extremely steep surface or ray angles with respect to z.  This should be tested. Still another ays is to not provide proper start conditions for numerical raytrace methods.  There is a utility to address this latter case.</p><p>A few other things should be tested:</p><ul><li>Rays must be known to converge on the surface.<ul><li>Don&#39;t choose a function that rolls off before the ray can hit it; that cannot be fixed.</li></ul></li><li>The surface function must be designed to return a number at the ray incident position.<ul><li>Example: built-in <a href="../Reference/#GeometricalOptics.zernike-Tuple{Real, Real, Vector{T} where T&lt;:Real}"><code>zernike</code></a> is defined to return <code>NaN</code> when outside the normalization radius, so it is <strong>designed to fail in certain cases</strong>.</li></ul></li></ul><p>Using a modification of the above example, it is possible to &quot;break&quot; the raytrace.  Take the same system for analysis as above, but change the parameters of the first asphere to be positioned and focused differently.  Note that a few rays traced through the first surface are traced erratically.  This is due to improper convergence of numerical raytracing.</p><pre><code class="language-julia hljs">using GeometricalOptics, Plots
+
+surfslist = [aspherical, aspherical, zplane]
+coeffslist = [[4., -4., -1.], [1., 2., -1.], [8.]]      # two parabolic surfaces
+nlist = [1., -1., 1.]                               # index sign change means reflection
+
+optsta_instance=opticalstack(coeffslist, surfslist, nlist)
+
+bund_ang(angle) = bundle([0.], (-0.5:0.5:0.5).+1, 0., angle, 0.)
+
+angles = [0., 0.028, 0.04]                     # a list of three angles
+colors = [:red, :green, :blue]                 # each of which is colored differently
+issurfplotvec = [true, false, false]           # only plot surfaces along with first bundle
+plot_together_in = Plots.plot()                # must put this into the system plotter to get all angles.
+
+stack_render(angle,pc,isp) = optsta_instance(bund_ang(angle); rend = &quot;YZ&quot;,color = pc,ydom = -2:0.1:2, plobj = plot_together_in, issurfplot = isp)
+
+plot_together_out_vec = stack_render.(angles, colors, issurfplotvec)
+plot_together_out_vec[3]                    # the last entry in the vector of plots has all bundles
+title!(&quot;broke the trace :(&quot;)</code></pre><img src="7f665afa.svg" alt="Example block output"/><p>The spots show the erratic rays as well:</p><pre><code class="language-julia hljs">splot_init = Plots.plot()
+
+bund2_ang(angle) = bundle((-0.5:0.2:0.5), (-0.5:0.2:0.5).+1, 0., angle, 0.)
+
+function optsta_render_splot(angle, pc, isp)
+    traceout = optsta_instance(bund2_ang(angle))
+    splot(traceout, pl_splot = splot_init, color = pc)
+end
+
+splot_vec = optsta_render_splot.(angles, colors, issurfplotvec)
+splot_vec[3]                                # the last entry in the vector of plots has all bundles
+title!(&quot;broke the trace :(&quot;)</code></pre><img src="65c09126.svg" alt="Example block output"/><p>This case can be fixed by using the optional argument <code>init_prop_guesses</code> to an instance of <code>opticalstack</code>.  The optional argument can be passed in as a vector of same length as the number of surfaces, or as <code>nothing</code>.  When <code>nothing</code>, all rays are first guessed to propagate zero distance to the next surface.  When passed in as a vector, each value of the vector is the initial guess of signed propagation distance to the corresponding surface. Because the error arises in finding intersection of the rays with the second surface, the initial guess for the second surface is altered, and in particular made negative (due to reflection) and given magnitude close to the distance expected for the ray.  Then all of the rays in a bundle will be traced separately, only with newly specified starting guesses for distances traversed between surfaces.</p><p>The issue with the raytrace is rectified by adding the vector of values to provide a better initial guess for the negative propagation to the second surface:</p><pre><code class="language-julia hljs">using GeometricalOptics, Plots
+
+surfslist = [aspherical, aspherical, zplane]
+coeffslist = [[4., -4., -1.], [1., 2., -1.], [8.]]      # two parabolic surfaces
+nlist = [1., -1., 1.]                               # index sign change means reflection
+
+optsta_instance = opticalstack(coeffslist, surfslist, nlist)
+
+bund_ang(angle) = bundle([0.], (-0.5:0.5:0.5).+1, 0., angle, 0.)
+
+angles = [0., 0.028, 0.04]                      # a list of three angles
+colors = [:red, :green, :blue]                 # each of which is colored differently
+issurfplotvec = [true, false, false]            # only plot surfaces along with first bundle
+plot_together_in = Plots.plot()               # must put this into the system plotter to get all angles.
+
+init_prop_guesses_choice = [0., -2., 0.]
+
+stack_render(angle, pc, isp) = optsta_instance(bund_ang(angle); rend = &quot;YZ&quot;, color = pc, ydom = -2:0.1:2, plobj = plot_together_in, issurfplot = isp, init_prop_guesses = init_prop_guesses_choice)
+
+plot_together_out_vec = stack_render.(angles, colors, issurfplotvec)
+plot_together_out_vec[3]                    # the last entry in the vector of plots has all bundles
+title!(&quot;fixed the trace :)&quot;)</code></pre><img src="5b2ed694.svg" alt="Example block output"/><p>The spots behave now too:</p><pre><code class="language-julia hljs">splot_init = Plots.plot()
+
+bund2_ang(angle) = bundle((-0.5:0.2:0.5), (-0.5:0.2:0.5).+1, 0., angle, 0.)
+
+function optsta_render_splot(angle, pc, isp)
+    traceout = optsta_instance(bund2_ang(angle); init_prop_guesses = init_prop_guesses_choice)
+    splot(traceout, pl_splot = splot_init, color = pc)
+end
+
+splot_vec = optsta_render_splot.(angles, colors, issurfplotvec)
+splot_vec[3]                                # the last entry in the vector of plots has all bundles
+title!(&quot;fixed the trace :)&quot;)</code></pre><img src="828fa4e7.svg" alt="Example block output"/><h2 id="Vectorizing-over-index,-3D-analysis"><a class="docs-heading-anchor" href="#Vectorizing-over-index,-3D-analysis">Vectorizing over index, 3D analysis</a><a id="Vectorizing-over-index,-3D-analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Vectorizing-over-index,-3D-analysis" title="Permalink"></a></h2><p>The same sort of thing that was done for different bundle angles can also be done for different system configurations.  Let&#39;s examine a few variations on this, plotting in 3D instead of 2D and using a custom bundle array defined to be a circular bundle footprint.  First define the parameters of the system that are fixed. The bundle is fixed with a circular footprint defined by <code>bundle_as_array</code>.  The array arguments are defined such that one array subscript corresponds to a radial distance from the central axis, and another subscript corresponds to an azimuthal angle around the axis.</p><pre><code class="language-julia hljs">using GeometricalOptics, Plots
+
+surfslist = [aspherical, aspherical, zplane]
+coeffslist = [[1., 6., -5.], [2., -6., -5.], [8.]]
+# index list is no longer up here, as the material is varied in modeling.
+
+rdom = 0.01:0.2: 1.
+thdom = 0.:pi/10:2pi
+r = rdom&#39; .* ones(length(thdom))
+th = ones(length(rdom))&#39; .* thdom
+bund_instance = bundle_as_array(r .* cos.(th), r .* sin.(th), zeros(size(r)), zeros(size(r)), 0.)</code></pre><p>Then define the variable system parameters.  The selected index values for the second material are in the vector <code>nsel</code>, and all three of these will be tested; results will be plotted in different colors on the same plot with surfaces only plotted alongside the first case.</p><pre><code class="language-julia hljs">nsel = [1.46, 1.5, 1.56]                # a list of three indices,
+colors = [:red, :green, :blue]         # each of which is colored differently
+issurfplotvec = [true, false, false]    # only plot surfaces with one of the bundles.
+plot_lens_init = Plots.plot()       # must put this into the system plotter to get all cases.</code></pre><p>Now make a function to vary the system over the desired values, and then call over the vectors defined above:</p><pre><code class="language-julia hljs">function optsta_render(n_u, pc, isp)
+    nlist_chr = [1., n_u, 1.]
+    optsta_instance = opticalstack(coeffslist, surfslist, nlist_chr)
+    optsta_instance(bund_instance; rend = &quot;3Dcirc&quot;, color = pc, numsurfpoints = 100, plobj = plot_lens_init, issurfplot = isp)
+end
+
+plot_lens_vec = optsta_render.(nsel, colors, issurfplotvec)
+plot_lens_vec[3]                # only need to plot the last of the three elements in the vector; it caught all cases.</code></pre><img src="a2a63178.svg" alt="Example block output"/><p>Using the same configuration, a YZ plot can be made.  This plot, with traces of a circular bundle, is a projection of all of the rays onto the YZ plane.  Thus the YZ plot (properly) appears to have irregular rays because the rays span 3D space and are projected into a 2D plane.  This is why it may be advantageous to plot fans (2D bundles) for lens viewing instead of 3D bundles, as in previous examples.</p><pre><code class="language-julia hljs">plot_lens_init3d = Plots.plot()
+function optsta_render(n_u, pc, isp)
+    nlist_chr = [1., n_u, 1.]
+    optsta_instance = opticalstack(coeffslist, surfslist, nlist_chr)
+    optsta_instance(bund_instance; rend = &quot;YZ&quot;, color = pc, numsurfpoints = 100, plobj = plot_lens_init3d, issurfplot = isp)
+end
+plot_lens_vec3d = optsta_render.(nsel, colors, issurfplotvec)
+plot_lens_vec3d[3]                 # only need to plot the last of the three elements in the vector; it caught all cases.</code></pre><img src="f8fc734e.svg" alt="Example block output"/><p>Finally, an analogous process is used to get the spot plot.  Different index of refraction corresponds to different size of the spot for this configuration.</p><pre><code class="language-julia hljs">splot_init = Plots.plot()
+function optsta_render_splot(n_u, pc, isp)
+    nlist_chr = [1., n_u, 1.]
+    optsta_instance = opticalstack(coeffslist, surfslist, nlist_chr)
+    traceout = optsta_instance(bund_instance)
+    splot(traceout, pl_splot = splot_init, color = pc, markersize = 3)
+end
+splot_vec = optsta_render_splot.(nsel, colors, issurfplotvec)
+splot_vec[3]</code></pre><img src="6afc1b37.svg" alt="Example block output"/><h2 id="custSurf"><a class="docs-heading-anchor" href="#custSurf">Sideloading a new surface function: caustics in the swimming pool</a><a id="custSurf-1"></a><a class="docs-heading-anchor-permalink" href="#custSurf" title="Permalink"></a></h2><p>Let&#39;s try to model the lines that appear when the sun strikes the surface waves on water, as in a swimming pool.  </p><p>Suppose we can approximate the surface waves in a swimming pool by a sinusoid on a polynomial (a better model might exist for this, but this one is qualitatively sufficient). This function can be defined as <code>wavy_water</code> below and sideloaded into the raytrace analysis. The function is first defined over arguments <code>x,y,coeffs</code>, where <code>x,y</code> are lateral coordinates and <code>coeffs::Vector{T} where T&lt;: Real</code> has entries which are decided by the user.  Then put the function list and put a corresponding coefficient vector with desired values into <code>coeffslist</code>.</p><p>The different densities of the ray spots at the analysis plane generates a wavy line pattern as can be seen at the bottom of a swimming pool.</p><pre><code class="language-julia hljs">using GeometricalOptics
+
+wavy_water(x, y, coeffs) = coeffs[1] + coeffs[2] * cos(coeffs[3] * (x^2 * 0.05 + 0.2*x +y))
+
+surfslist = [wavy_water, zplane]
+coeffslist = [[1., 0.1, 3.], [8.]]
+nlist = [1., 1.33]
+optsta_instance = opticalstack(coeffslist, surfslist, nlist)
+
+bund_instance = bundle((-2:0.1:2), (-2:0.1:2), 0., 0., 0.)
+
+traceout = optsta_instance(bund_instance)
+plot_spot = splot(traceout)</code></pre><img src="d37851f2.svg" alt="Example block output"/><p>To view the raytrace, let&#39;s use a less dense bundle than the one used for evaluation.  The rays and surfaces can be viewed from the side. Note that the side plot shows a projection of all rays in the bundle with various different angles.</p><pre><code class="language-julia hljs">bund_instance = bundle((-2:0.5:2), (-2:0.5:2), 0., 0., 0.)
+plot_sys = optsta_instance(bund_instance, rend = &quot;YZ&quot;)</code></pre><img src="f1107901.svg" alt="Example block output"/><p>Or the rays and surfaces can be viewed in 3D. The bottom of the pool is at the top of the fixed view pane shown below.  This is better observed when the plot is viewed interactively - try it out!</p><pre><code class="language-julia hljs">plot_sys2 = optsta_instance(bund_instance, rend = &quot;3Dsq&quot;)</code></pre><img src="a066ce21.svg" alt="Example block output"/><p>This example illustrates how a user defined surface of arbitrary shape can be directly used in analysis, accepting a vector of coefficients just as for built-in functions.</p><h2 id="grin"><a class="docs-heading-anchor" href="#grin">Advanced: Gradient index (GRIN) lens with flat surfaces</a><a id="grin-1"></a><a class="docs-heading-anchor-permalink" href="#grin" title="Permalink"></a></h2><p>The index of refraction can vary continuously in a material.  Light can be focused with a gradient index distribution even in the absence of a curved surface.  This can be modeled by replacing the index entry with a quadratic GRIN function and passing a couple extra arguments to the <code>opticalstack</code> for the coefficients of the index function and the discrete ray sampling in the GRIN medium.</p><p>First the quadratic GRIN coefficient is calculated to give the approximate desired focal length for a given thickness of the GRIN, and the GRIN function for use is defined. It must be written as <code>n(x,y,z,coeffs)</code> where <code>coeffs</code> is the coefficient vector mapped into the GRIN function and <code>x,y,z</code> are the coordinates being modeled. </p><pre><code class="language-julia hljs">using GeometricalOptics
+
+f = 10.               # some quick physical calculation to get approximate focal length
+t = 2.
+n_r2 = -1 / 2 / f / t
+
+n_custom(x, y, z, coeffs) = coeffs[1] + coeffs[2] * (x^2 + y^2)</code></pre><p>Now the system <code>opticalstack</code> is set up almost exactly the same except now with two more arguments. <code>dt</code> sets the GRIN step size and <code>n_coeffslist</code> provides a list of coefficient lists accessible to an index function at a corresponding position in <code>nlist</code>.  In this way, <code>n_coeffslist</code> serves the GRIN analogous to how <code>coeffslist</code> serves surfaces in construction.</p><pre><code class="language-julia hljs">surfslist = [zplane, zplane, zplane]
+coeffslist = [[1.], [1 + t], [1 + t + f]]
+nlist = [1., n_custom, 1.]
+
+dt = 0.003                                # set the discrete step of the curved raytrace
+n_coeffslist = [[0.], [1.5, n_r2], [0.]]     # only entries where values matter are those
+                                        #   corresponding to entries of nlist which are functions
+
+optsta_instance = opticalstack(coeffslist, surfslist, nlist, n_coeffslist, dt)</code></pre><p>Then a y-fan can be traced and the YZ cross-section plotted:</p><pre><code class="language-julia hljs">bund_instance = bundle([0.], (-4:0.5:4), 0., 0., 0.)
+plot_lens = optsta_instance(bund_instance; rend = &quot;YZ&quot;)</code></pre><img src="eb61eee1.svg" alt="Example block output"/><p>And the ray position at input and output in the y direction can be compared:</p><pre><code class="language-julia hljs">traceout = optsta_instance(bund_instance)
+plot_rac = rac(traceout, 1, 4)</code></pre><img src="59456aba.svg" alt="Example block output"/><p>&quot;Whoa,&quot; you say, &quot;that doesn&#39;t look right, my input and output ray coordinates are not the same size as this plot would suggest!&quot;  That would be correct.  The reason is that the GRIN implementation traces a bunch of tiny ray segments and stores them in the <code>trace</code> or <code>bigtrace</code> output.  Unlike for the basic systems with reflective or refractive surfaces, now the propagation subscripts of the rays in the bundle are no longer linked to the number of surfaces, but to the number of surfaces <em>plus</em> the number of ray increments in the GRIN.</p><p>Let&#39;s extract a ray and examine its subscript length.  Just arbitrarily pick the first ray in the trace here:</p><pre><code class="language-julia hljs">zvalues_ray11 = trace_extract_ray(traceout, 1, 1; coord = &quot;z&quot;)
+length(zvalues_ray11)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">598</code></pre><p>And now it is apparent that the ray had to be traced in a total of 598 segments to meet the GRIN ray increment resolution of <code>dt=0.003</code>.  Using this information identifies the propagation position corresponding to the intersection of the ray with the last plane.</p><pre><code class="language-julia hljs">traceout = optsta_instance(bund_instance)
+plot_rac = rac(traceout, 1, 598)</code></pre><img src="300230dd.svg" alt="Example block output"/><p>Note that when using this in vectorized form or with dense ray bundles, the GRIN implementation will slow the raytrace for small chosen values of <code>dt</code>.  This is a trade of speed and accuracy that should be made carefully.</p><h2 id="grating"><a class="docs-heading-anchor" href="#grating">Advanced: Grating/hologram/metasurface lens</a><a id="grating-1"></a><a class="docs-heading-anchor-permalink" href="#grating" title="Permalink"></a></h2><p>The procedure to raytrace through gratings, holograms, and metasurfaces is the same, as all three contribute a phase perturbation to the wavefront local to the ray intersection with a surface.  </p><p>It is worth noting that although the raytrace procedure is the same for gratings, holograms, and metasurfaces, their real use can be quite different.</p><p>First a few calculations for the coefficient of the quadratic diffractive are carried out, and the wavelength in system units is defined as 0.00055.  When the system units are taken to be millimeters, this wavelength corresponds to green light.  All physical quantities in this package must be entered with consistent units; choice of this consistent unit scale is flexible.</p><pre><code class="language-julia hljs">using GeometricalOptics
+
+lambda_wl = 0.00055 # note: must keep units consistent!
+f = 7.
+quad_opl_cff = -1 / 2 / f
+quad_phase_cff = 2 * pi / lambda_wl * quad_opl_cff
+
+phase_custom(x, y, z, coeffs) = coeffs[1] * (x^2 + y^2)</code></pre><p>The diffraction grating is defined by a volume phase function in a list of functions (<code>difflist</code> below) sampled by a surface in <code>surflist</code>. A volume phase function <code>phase_custom(x,y,z,coeffs)</code> is defined with a quadratic profile to accept the calculated coefficient value in the coefficient vector <code>coeffs</code>.  The volume phase function <span>$\phi(x,y,z)$</span> is used to get the real phase contribution <span>$\phi_{surf}(x,y)$</span> on an arbitrarily shaped surface <span>$z(x,y)$</span> by</p><p class="math-container">\[\phi_{surf}(x, y) = \phi(x, y, z(x, y)).\]</p><p>There is no restriction on the shape of the surface. This enables a phase function on a freeform surface to be modeled.</p><p>Where there are no diffraction gratings, the entry in <code>difflist</code> should be zero.  A vector of integers (<code>diffmlist</code> below) and a vector of vectors (<code>diffcoeffslist</code> below) are passed in alongside the diffraction function vector to pass in the desired diffraction order and the vector of coefficients for all diffractive gratings.  The entries to these later vectors are only important when the entry in <code>difflist</code> is a function and nonzero.</p><p>Important note: the index of refraction before and after the diffractive surface must be equal. If the desired physical system has two different materials on either side of the diffractive, then the system should be modeled as a sequence of a diffractive surface and an identically located and defined reflective or refractive surface.</p><pre><code class="language-julia hljs">difflist = [phase_custom, 0.]
+diffmlist = [1, 0]
+diffcoeffslist = [[quad_phase_cff], [1.]]
+
+surfslist = [zplane, zplane]
+coeffslist = [[1.], [8.]]
+nlist = [1., 1.]
+
+optsta_instance = opticalstack(coeffslist, surfslist, nlist, difflist, diffcoeffslist, diffmlist, lambda_wl)
+
+bund_instance = bundle([0.], (-4:0.5:4), 0., 0., 0.)
+plot_lens = optsta_instance(bund_instance; rend = &quot;YZ&quot;)</code></pre><img src="56ad1f50.svg" alt="Example block output"/><p>The plot of the y coordinates of the YZ fan at input and output positions in propagation are then given</p><pre><code class="language-julia hljs">traceout = optsta_instance(bund_instance)
+plot_rac = rac(traceout, 1, 3)</code></pre><img src="dc52cfa1.svg" alt="Example block output"/><p>Noting the vertical scale, it is observed how raytraced diffractives theoretically promise tight or even &quot;perfect&quot; focusing.  The imperfect performance of this diffractive is appreciated only when the wave nature of light is considered, which is outside the scope of pure ray-based analysis.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Options/">« Bundle, surface, and trace options</a><a class="docs-footer-nextpage" href="../TroubleConv/">Troubleshooting and Conventions »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.0 on <span class="colophon-date" title="Tuesday 14 January 2025 22:30">Tuesday 14 January 2025</span>. Using Julia version 1.11.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
