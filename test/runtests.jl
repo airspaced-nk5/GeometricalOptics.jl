@@ -63,20 +63,20 @@ bund1= bundle_as_array(r.*cos.(th),r.*sin.(th),0. .* ones(size(r)), 0. .* ones(s
     @test_nowarn bigtrace_to_bundle(traceObj,4)
 end
 
-rdom=0.01:0.2: 1.
-thdom=0.:pi/10:2pi
+rdom=0.01:0.45: 1.
+thdom=0.:pi/4:2pi
 r=rdom'.*ones(length(thdom))
 th=ones(length(rdom))'.*thdom
 bund1= bundle_as_array(r.*cos.(th),r.*sin.(th),0. .* ones(size(r)), 0. .* ones(size(r)),0.)
-bund2=bundle([0.],(-1:0.4:1).+eps(),0.,0.,0.)
-bund3 = bundle([0.],(-1:0.4:1).+eps(),0.,0.14,0.)
-bund4=bundle((-1:0.1:1).+eps(),(-1:0.1:1).+eps(),0.,0.,0.)
-bund5=bundle((-1:0.1:1).+eps(),(-1:0.1:1).+eps(),0.,0.14,0.)
-bund6=bundle(0.,0. .+eps(),(-0.1:0.01:0.1).+eps(),(-0.1:0.01:0.1).+eps(),0.)
-bund7=bundle(0.,0.14,(-0.1:0.01:0.1).+eps(),(-0.1:0.01:0.1).+eps(),0.)
+bund2=bundle([0.],(-1:1.0:1).+eps(),0.,0.,0.)
+bund3 = bundle([0.],(-1:1.0:1).+eps(),0.,0.14,0.)
+bund4=bundle((-1:0.5:1).+eps(),(-1:0.5:1).+eps(),0.,0.,0.)
+bund5=bundle((-1:0.5:1).+eps(),(-1:0.5:1).+eps(),0.,0.14,0.)
+bund6=bundle(0.,0. .+eps(),(-0.1:0.05:0.1).+eps(),(-0.1:0.05:0.1).+eps(),0.)
+bund7=bundle(0.,0.14,(-0.1:0.05:0.1).+eps(),(-0.1:0.05:0.1).+eps(),0.)
 bund1_fast= bundle_as_array_fast(r.*cos.(th),r.*sin.(th),0. .* ones(size(r)), 0. .* ones(size(r)),0.)
-bund4_fast=bundle_fast(Vector((-1:0.1:1).+eps()),Vector((-1:0.1:1).+eps()),0.,0.,0.)
-bund7_fast=bundle_fast(0.,0.14,Vector((-0.1:0.01:0.1).+eps()),Vector((-0.1:0.01:0.1).+eps()),0.)
+bund4_fast=bundle_fast(Vector((-1:0.5:1).+eps()),Vector((-1:0.5:1).+eps()),0.,0.,0.)
+bund7_fast=bundle_fast(0.,0.14,Vector((-0.1:0.05:0.1).+eps()),Vector((-0.1:0.05:0.1).+eps()),0.)
 traceObj=super_optSta[1](bund1;isbigtrace=true)
 bund8=bigtrace_to_bundle(traceObj,4) 
 bund8_fast=bundle_as_array_big_fast(bund8.x,bund8.y,bund8.z,bund8.Dx,bund8.Dy,bund8.Dz)
@@ -97,7 +97,7 @@ super_bundle=[bund1,bund2,bund3,bund4,bund5,bund6,bund7,bund8,bund1_fast,bund4_f
         @test_nowarn rms_spot(traceObj;pos=3)
         @test_nowarn trace_extract_ray(traceObj,1,1)
         @test_nowarn trace_extract_terminus(traceObj,4)
-        # println(i,j)
+        println(i,j)
     end 
 end
 

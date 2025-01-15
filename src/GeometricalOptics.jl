@@ -6,8 +6,9 @@ trace_extract_ray, trace_extract_terminus
 
 using Plots
 using PlotlyBase
-Plots.plotly()
-Plots.PlotlyBackend()
+using PlotlyKaleido
+# Plots.plotly()
+# Plots.PlotlyBackend()
 using ForwardDiff
 using LinearAlgebra
 using ZernikePolynomials
