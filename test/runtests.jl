@@ -97,7 +97,7 @@ super_bundle=[bund1,bund2,bund3,bund4,bund5,bund6,bund7,bund8,bund1_fast,bund4_f
         @test_nowarn rms_spot(traceObj;pos=3)
         @test_nowarn trace_extract_ray(traceObj,1,1)
         @test_nowarn trace_extract_terminus(traceObj,4)
-        println(i,j)
+        # println(i,j)
     end 
 end
 
